@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Matchmaking Results</title>
+        <link rel="stylesheet" href="pure-min.css">
+        <!--<link href='https://fonts.googleapis.com/css?family=Linden+Hill' rel='stylesheet' type='text/css'>-->
+        <link href='https://fonts.googleapis.com/css?family=Source+Serif+Pro' rel='stylesheet' type='text/css'>
+        <style type="text/css">
+            body {
+                /*font-family: 'Linden Hill', serif;*/
+                font-family: 'Source Serif Pro', serif;
+                font-size: 0.9em;
+            }
+            h1 {
+                font-size: 1.2em;
+            }
+            .title {
+                color: blue;
+                text-decoration: bold;
+            }
+        
+            .author {    
+                color: gray;
+            }
+            
+            table {
+                width: 100%;
+            }
+
+            .indexCol {
+                width: 50px;
+            }
+            .nameCol {
+                width: 79%;
+            }
+            .pairCol {
+                width: 45%;
+            }
+            .gradeCol {
+                width: 10%;
+            }
+            .scoreCol {
+                width: 10%;
+            }
+            
+            .fordiv{
+                font-size: 1.8em;
+            }
+            .gradediv{
+                font-size: 1.6em;
+                float: right;
+                text-align: right;
+            }
+           </style>
+    </head>
+    <body>
+        <div>
+            <h1>
+            <span class="fordiv">For: {{target.first_name}} {{target.last_name}}</span>
+            <span class="gradediv">Grade: {{target.grade}}</span>
+            </h1>
+        </div>
+        <hr/>
+        <p>
+            Congratulations {{target.first_name}}!  We've compiled a list of
+            statistics about your entire school's matches.
+        </p>
+        <p> Your average rank on others' forms is: {{ avg_rank }} </p>
+        <p> Your average score is: {{ '{:3.1%}'.format(avg_score) }}</p>
+        <br>
+        <p> School-wide match statistics: </p>
+        <table class="pure-table">
+            <thead>
+            <tr>
+                <th>Best Date Pairs</th>
+                <th></th>
+                <th>Compatibility</th>
+            </tr>
+            </thead>
+            {% for match in best_date_matches %}
+            {% if best_date_matches.index(match) % 2 == 1 %}
+                <tr class="pure-table-odd">
+            {% else %}
+                <tr>
+            {% endif %}
+            <td class="pairCol">{{match.owner.first_name}} {{match.owner.last_name}}</td>
+            <td class="pairCol">{{match.person.first_name}} {{match.person.last_name}}</td>
+            <td class="scoreCol">{{'{:3.1%}'.format(match.score)}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table class="pure-table">
+            <thead>
+            <tr>
+                <th>Best Friend Pairs</th>
+                <th></th>
+                <th>Compatibility</th>
+            </tr>
+            </thead>
+            {% for match in best_friend_matches %}
+            {% if best_friend_matches.index(match) % 2 == 1 %}
+                <tr class="pure-table-odd">
+            {% else %}
+                <tr>
+            {% endif %}
+            <td class="pairCol">{{match.owner.first_name}} {{match.owner.last_name}}</td>
+            <td class="pairCol">{{match.person.first_name}} {{match.person.last_name}}</td>
+            <td class="scoreCol">{{'{:3.1%}'.format(match.score)}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table class="pure-table">
+            <thead>
+            <tr>
+                <th>Most Unlikely Date Pairs</th>
+                <th></th>
+                <th>Compatibility</th>
+            </tr>
+            </thead>
+            {% for match in worst_date_matches %}
+            {% if worst_date_matches.index(match) % 2 == 1 %}
+                <tr class="pure-table-odd">
+            {% else %}
+                <tr>
+            {% endif %}
+            <td class="pairCol">{{match.owner.first_name}} {{match.owner.last_name}}</td>
+            <td class="pairCol">{{match.person.first_name}} {{match.person.last_name}}</td>
+            <td class="scoreCol">{{'{:3.1%}'.format(match.score)}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table class="pure-table">
+            <thead>
+            <tr>
+                <th>Most Unlikely Friend Pairs</th>
+                <th></th>
+                <th>Compatibility</th>
+            </tr>
+            </thead>
+            {% for match in worst_friend_matches %}
+            {% if worst_friend_matches.index(match) % 2 == 1 %}
+                <tr class="pure-table-odd">
+            {% else %}
+                <tr>
+            {% endif %}
+            <td class="pairCol">{{match.owner.first_name}} {{match.owner.last_name}}</td>
+            <td class="pairCol">{{match.person.first_name}} {{match.person.last_name}}</td>
+            <td class="scoreCol">{{'{:3.1%}'.format(match.score)}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p></p>
+        <hr>
+        <p>
+            We've also compiled a list of
+            everyone in your school and how you rank with each of them!&nbsp;
+            They're based on your preferences, interests, and other
+            psychological factors as revealed by the compatibility forms you and
+            many others in your school completed.&nbsp;
+        </p>
+        <table class="pure-table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Your Rank</th>
+                <th>Rating</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for match in target.date_matches %}
+                {% if target.date_matches.index(match) % 2 == 1 %}
+                <tr class="pure-table-odd">
+                {% else %}
+                <tr>
+                {% endif %}
+                    <td class="nameCol">{{match.person.first_name}} {{match.person.last_name}}</td>
+                    <td class="gradeCol">{{match.person.grade}}</td>
+                    <td class="indexCol">{{match.person.matches.get(target.id).rank}}</td>
+                    <td class="scoreCol">{{'{:3.1%}'.format(match.score)}}</td>
+                </tr>
+                {% endfor %}
+                {% for match in target.friend_matches %}
+                {% if target.friend_matches.index(match) % 2 == 1 %}
+                <tr class="pure-table-odd">
+                {% else %}
+                <tr>
+                {% endif %}
+                    <td class="nameCol">{{match.person.first_name}} {{match.person.last_name}}</td>
+                    <td class="gradeCol">{{match.person.grade}}</td>
+                    <td class="indexCol">{{match.person.matches.get(target.id).rank}}</td>
+                    <td class="scoreCol">{{'{:3.1%}'.format(match.score)}}</td>
+                </tr>
+                {% endfor %}
+                
+               
+            </tbody>
+        </table>
+    </body>
+</html>

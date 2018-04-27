@@ -1,0 +1,24 @@
+
++----------------------------------------------+
+| KML Matchmaker v1.3                          |
+| Written by Alexander Neuwirth, Class of 2018 |
+|                                              |
+| Contribution from:                           |
+| Andrew Hughes                                |
+| Dylan Schulz                                 |
+| Matthew Hughes                               |
+|                                              |
+| Created 2016, Revised 2018                   |           
++----------------------------------------------+
+
+NON-TECHNICAL DOCUMENTATION
+
+By using this program, you are bound by the terms and restrictions outlined in license.txt
+
+If you are reading this, it is assumed that you have limited knowledge of computer programming, and intend to use this program as a compatibility matching service as-is, with no modification or other technical fanciness.
+
+If this is not the case, please refer to the Technical.txt file for more in-depth musings on the inner workings of this program.
+
+HOW TO USE
+
+1. Create a Compatibility Form

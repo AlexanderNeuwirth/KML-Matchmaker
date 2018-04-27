@@ -1,0 +1,19 @@
+By using this code, you agree to the license below, enforcable by standard US copyright law.
+
+This code is subject to a non-standard license, as outlined by the following terms:
+
+This code and associated documentation ("the Matchmaker") is given freely (but not without restriction) to Kettle Moraine Lutheran High School in Jackson, WI ("KML") to be used for school fundraising purposes, statistics projects, mentor matching, and similar functionality.
+
+Students, faculty, and other affiliates of KML may use the Matchmaker for any of the above purposes within and only within the context of official KML-sponsored functions.
+
+Nobody may use the Matchmaker for private or commercial purposes under any circumstances.
+
+The Matchmaker may not be distributed to parties outside of KML students, faculty, and affiliates, and, when distributed, is still subject to the terms of this document. This unaltered license must be included with any distribution of the Matchmaker.
+
+The Matchmaker is ultimately the shared property of its creators:
+Alexander Neuwirth
+Matthew Hughes
+Dylan Schulz
+Andrew Hughes
+
+For further inquiry about the nature of this license, please contact Alexander Neuwirth at alexander.e.neuwirth@gmail.com.

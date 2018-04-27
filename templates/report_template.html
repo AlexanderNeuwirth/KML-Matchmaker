@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Matchmaking Results</title>
+        <link rel="stylesheet" href="pure-min.css">
+        <!--<link href='https://fonts.googleapis.com/css?family=Linden+Hill' rel='stylesheet' type='text/css'>-->
+        <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/linux-libertine" type="text/css"/>
+        <style type="text/css">
+            body {
+                /*font-family: 'Linden Hill', serif;*/
+                font-family: 'LinuxLibertineORegular'; 
+                font-weight: normal; 
+                font-style: normal; 
+                font-size: 0.85em;
+            }
+            h1 {
+                font-size: 1.0em;
+            }
+            .title {
+                color: blue;
+                text-decoration: bold;
+            }
+        
+            .author {    
+                color: gray;
+            }
+            
+            table {
+                width: 100%;
+            }
+
+            .indexCol {
+                width: 10%;
+            }
+            .rankCol
+            {
+                width: 15%;
+            }
+            .nameCol {
+                width: 49%;
+            }
+            .gradeCol {
+                width: 15%;
+            }
+            .scoreCol {
+                width: 10%;
+            }
+            
+            .fordiv{
+                font-size: 1.8em;
+            }
+            .gradediv{
+                font-size: 1.6em;
+                float: right;
+                text-align: right;
+            }
+           </style>
+    </head>
+    <body>
+        {% for entry in data %} 
+            <div id="student_page"  style="page-break-inside: avoid;">
+                <div>
+                    <h1>
+                    <span class="fordiv">For: {{entry.target.first_name}} {{entry.target.last_name}}</span>
+                    <span class="gradediv">Grade: {{entry.target.grade}}</span>
+                    </h1>
+                </div>
+                <hr/>
+                <p>
+                    Congratulations {{entry.target.first_name}}! We've compiled a list of
+                    matches, selected especially for you!&nbsp;
+                    They're based on your preferences, interests, and other 
+                    psychological factors as revealed by the compatibility forms you and 
+                    many others in your school completed.&nbsp;
+                </p>
+                <p>
+                    Your top ten matches are listed in order of most compatibility. 
+                    (#1 is your best match) The number in &quot;Your Rank&quot; is your number on 
+                    that person's list while the rating indicates the percent similarity.
+                </p>
+                <table class="pure-table">
+                    <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Your Rank</th>
+                        <th>Class</th>
+                        <th>Rating</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for match in entry.top_matches %}
+                    {% if entry.top_matches.index(match) % 2 == 1 %}
+                    <tr class="pure-table-odd">
+                    {% else %}
+                    <tr>
+                    {% endif %}
+                        <td class="indexCol">{{match.rank}}.</td>
+                        <td class="nameCol">{{match.person.first_name}} {{match.person.last_name}}</td>
+                        <td class="rankCol">{{match.person.matches.get(entry.target.id).rank}}</td>
+                        <td class="gradeCol">{{match.person.grade}}</td>
+                        <td class="scoreCol">{{'{:3.1%}'.format(match.score)}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!--<hr/>-->
+                <div>
+                    Least Compatible Matches (#1 is your least compatible match)
+                </div>
+                <table class="pure-table">
+                    <tbody>
+                    {% for match in entry.least_compatible_matches %} <!-- This isn't right, but I don't know enough HTML/SQL/whatever this is to fix it right now -->
+                    {% if entry.least_compatible_matches.index(match) % 2 == 1 %}
+                    <tr class="pure-table-odd">
+                    {% else %}
+                    <tr>
+                    {% endif %}
+                        <td class="indexCol">{{entry.least_compatible_matches.index(match)+1}}.</td>
+                        <td class="nameCol">{{match.person.first_name}} {{match.person.last_name}}</td>
+                        <td class="rankCol">{{match.person.matches.get(entry.target.id).rank}}</td>
+                        <td class="gradeCol">{{match.person.grade}}</td>
+                        <td class="scoreCol">{{'{:3.1%}'.format(match.score)}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!--<hr/>-->
+                <div>
+                    Best Friend Matches (#1 is your most compatible match)
+                </div>
+                <table class="pure-table">
+                    <tbody>
+                    {% for match in entry.friend_matches %} <!-- This isn't right, but I don't know enough HTML/SQL/whatever this is to fix it right now -->
+                    {% if entry.friend_matches.index(match) % 2 == 1 %}
+                    <tr class="pure-table-odd">
+                    {% else %}
+                    <tr>
+                    {% endif %}
+                        <td class="indexCol">{{entry.friend_matches.index(match)+1}}.</td>
+                        <td class="nameCol">{{match.person.first_name}} {{match.person.last_name}}</td>
+                        <td class="rankCol">{{match.person.matches.get(entry.target.id).rank}}</td>
+                        <td class="gradeCol">{{match.person.grade}}</td>
+                        <td class="scoreCol">{{'{:3.1%}'.format(match.score)}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    </body>
+</html>
